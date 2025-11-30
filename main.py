@@ -1,6 +1,6 @@
-from LoggerConfig import app_logger
+from LoggerConfig import app_logger,ordinary_logger
 def main():
-    app_logger.info("FirstEntry")
+    ordinary_logger.info("FirstEntry")
 
 
 if __name__ == "__main__":

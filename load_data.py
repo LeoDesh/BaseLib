@@ -1,8 +1,12 @@
 from abc import ABC
 from pathlib import Path
 from file_verification import FileVerification
-from typing import List, Iterable
+from typing import List, Iterable, Dict, Any
+from load_helper import get_file_lines
+import pandas as pd
+import json
 from LoggerConfig import app_logger
+
 
 class IFileLoader(ABC):
     def load(self, filename: str | Path, *, sep=","):
@@ -16,17 +20,10 @@ class TextFileLoader:
 
     def load(self, filename: str | Path, *, sep="") -> List[List[str]]:
         self.file_verification.verify_file(filename)
-        text_lines = self.get_text_lines(filename)
+        text_lines = get_file_lines(filename)
         if not sep:
             sep = self.find_field_separator(text_lines)
         return [list(line.split(sep)) for line in text_lines]
-
-    def clean_up_text(self,field:str):
-        return field.replace("\n","").strip()
-
-    def get_text_lines(self, filename: str | Path) -> List[str]:
-        with open(str(filename), "r") as file:
-            return [self.clean_up_text(line) for line in  file.readlines() if self.clean_up_text(line)]
 
     def find_field_separator(self, file_lines: List[str]) -> str:
         for sep in self.common_file_sep:
@@ -43,3 +40,29 @@ class TextFileLoader:
         return True
 
 
+class CSVFileLoader:
+    def __init__(self):
+        self.file_verification = FileVerification("csv")
+
+    def load(self, filename: str | Path, sep: str) -> pd.DataFrame:
+        self.file_verification.verify_file(filename)
+        return pd.read_csv(filename, sep=sep)
+
+
+class ExcelFileLoader:
+    def __init__(self):
+        self.file_verification = FileVerification(["xlsx", "xls", "xlsm"])
+
+    def load(self, filename: str | Path, sheet_name: str) -> pd.DataFrame:
+        self.file_verification.verify_file(filename)
+        return pd.read_excel(filename, sheet_name=sheet_name)
+
+
+class JSONLineLoader:
+    def __init__(self):
+        self.file_verification = FileVerification("jsonl")
+
+    def load(self, filename: str | Path) -> List[Dict[str, Any]]:
+        self.file_verification.verify_file(filename)
+        file_lines = get_file_lines(filename)
+        return [json.loads(line) for line in file_lines]
