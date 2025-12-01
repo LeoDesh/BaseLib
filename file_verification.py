@@ -20,7 +20,7 @@ class FileVerification:
             raise ValueError(f"Path {path} does not belong to a file.")
 
         if not self.verify_format(path):
-            raise ValueError(f"Path {path} does not have the right extension.")
+            raise ValueError(f"Path {path} does not have the right extension. Should have: {self.file_endings}")
 
 
     def verify_format(self,path:str|Path) -> bool:

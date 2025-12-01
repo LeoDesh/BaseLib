@@ -9,7 +9,7 @@ from LoggerConfig import app_logger
 
 
 class IFileLoader(ABC):
-    def load(self, filename: str | Path, *, sep=","):
+    def load(self, filename: str | Path):
         pass
 
 
@@ -42,7 +42,7 @@ class TextFileLoader:
 
 class CSVFileLoader:
     def __init__(self):
-        self.file_verification = FileVerification("csv")
+        self.file_verification = FileVerification(".csv")
 
     def load(self, filename: str | Path, sep: str) -> pd.DataFrame:
         self.file_verification.verify_file(filename)
@@ -51,7 +51,7 @@ class CSVFileLoader:
 
 class ExcelFileLoader:
     def __init__(self):
-        self.file_verification = FileVerification(["xlsx", "xls", "xlsm"])
+        self.file_verification = FileVerification([".xlsx", ".xls", ".xlsm"])
 
     def load(self, filename: str | Path, sheet_name: str) -> pd.DataFrame:
         self.file_verification.verify_file(filename)
@@ -60,7 +60,7 @@ class ExcelFileLoader:
 
 class JSONLineLoader:
     def __init__(self):
-        self.file_verification = FileVerification("jsonl")
+        self.file_verification = FileVerification(".jsonl")
 
     def load(self, filename: str | Path) -> List[Dict[str, Any]]:
         self.file_verification.verify_file(filename)

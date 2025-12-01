@@ -14,8 +14,22 @@ def excel_verification() -> FileVerification:
 
 @pytest.fixture
 def sample_file() -> str:
-    return r"tests\load_data\simple.txt"
+    return r"tests\load_data\files\simple.txt"
 
 @pytest.fixture
 def modified_file() -> str:
-    return r"tests\load_data\modified.txt"
+    return r"tests\load_data\files\modified.txt"
+
+@pytest.fixture
+def excel_file() -> str:
+    return r"tests\load_data\files\excel.xlsx"
+
+
+@pytest.fixture
+def csv_file() -> str:
+    return r"tests\load_data\files\data.csv"
+
+
+@pytest.fixture
+def json_file() -> str:
+    return r"tests\load_data\files\logs.jsonl"
