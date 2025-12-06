@@ -40,7 +40,7 @@ class MS_SQL_ConnectionHandler:
         return create_engine(connection_url)
 
 
-def create_sql_engine() -> SqlEngine:
+def create_ms_sql_engine() -> SqlEngine:
     conn = MS_SQL_ConnectionHandler(**SERVER_INFO)
     return conn.create_engine()
 
@@ -49,7 +49,7 @@ def create_lite_engine(db_path: str = "sqlite:///response.db") -> SqlEngine:
     return create_engine(db_path)
 
 
-SERVER_ENGINE: SqlEngine = create_sql_engine()
+SERVER_ENGINE: SqlEngine = create_ms_sql_engine()
 
 
 
