@@ -1,5 +1,5 @@
 import pytest
-from file_verification import FileVerification
+from file_loader.file_verification import FileVerification
 
 
 @pytest.fixture

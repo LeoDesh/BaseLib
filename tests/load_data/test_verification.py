@@ -1,5 +1,5 @@
 from pathlib import Path
-from file_verification import FileVerification
+from file_loader.file_verification import FileVerification
 
 
 def test_file_verification_initialization(txt_verification: FileVerification):
