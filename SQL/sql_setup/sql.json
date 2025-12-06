@@ -1,0 +1,6 @@
+{
+    "driver": "{ODBC Driver 17 for SQL Server}",
+    "db": "NLP",
+    "server": "DESKTOP-QVO4FJU\\SQLSERVER",
+    "trusted": "yes"
+}
