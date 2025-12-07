@@ -13,17 +13,51 @@ def data_row_str():
 
 @pytest.fixture()
 def data_container_mixed_types():
-    return [(1,2,3),(4,5),"str"]
+    return [(1, 2, 3), (4, 5), "str"]
 
 
 @pytest.fixture()
 def data_container_different_columns_sizes():
     return [(1, 2, 3, 4), (5, 6, 7, 8), (9, 10, 11), (12, 13, 14, 15)]
 
+
 @pytest.fixture()
 def data_container_suitable():
-    return [(1, 2, 3, 4), (5, 6, 7, 8), (9, 10, 11,12), (12, 13, 14, 15)]
+    return [(1, 2, 3, 4), (5, 6, 7, 8), (9, 10, 11, 12), (12, 13, 14, 15)]
+
 
 @pytest.fixture()
 def data_container_single_row():
     return [1, 2, 3, 4]
+
+
+@pytest.fixture()
+def data_container_jsonl_suitable():
+    return [{"PersonID": 15, "OrderID": 22}, {"PersonID": 44, "OrderID": 62}]
+
+
+@pytest.fixture()
+def data_container_jsonl_different_columns():
+    return [{"PersonID": 15, "PurchaseID": 22}, {"PersonID": 44, "OrderID": 62}]
+
+
+@pytest.fixture()
+def data_container_jsonl_different_column_sizes():
+    return [
+        {"PersonID": 15, "PurchaseID": 22},
+        {"PersonID": 44, "OrderID": 62, "PurchaseID": 348},
+    ]
+
+
+@pytest.fixture()
+def data_container_jsonl_mixed_types():
+    return [
+        {"PersonID": 15, "PurchaseID": 22},
+        18,
+        {"PersonID": 35, "PurchaseID": 42},
+    ]
+
+
+@pytest.fixture()
+def data_container_json_suitable():
+    return {"1": {"PersonID": 15, "OrderID": 22}, "2": {"PersonID": 44, "OrderID": 62}}
