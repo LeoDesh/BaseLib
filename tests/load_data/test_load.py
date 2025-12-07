@@ -1,4 +1,4 @@
-from file_loader.load_data import TextFileLoader,ExcelFileLoader,CSVFileLoader,JSONLineLoader
+from file_loader.load_data import TextFileLoader,ExcelFileLoader,CSVFileLoader,JSONLineLoader,JSONLoader
 from file_loader.load_helper import clean_up_text,get_file_lines
 import pytest
 
@@ -39,9 +39,16 @@ def test_load_csv(csv_file):
     assert df.shape == (1,3)
 
 @pytest.mark.fast
-def test_load_jsonl(json_file):
+def test_load_jsonl(jsonl_file):
     loader = JSONLineLoader()
-    data = loader.load(json_file)
+    data = loader.load(jsonl_file)
     assert len(data) == 2
     for line_dict in data:
         assert line_dict["level"] == "INFO"
+
+@pytest.mark.fast
+def test_load_json(json_file):
+    loader = JSONLoader()
+    data = loader.load(json_file)
+    assert len(data) == 2
+    assert data["1"]["Value"] == 2

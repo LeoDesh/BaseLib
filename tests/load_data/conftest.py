@@ -31,5 +31,9 @@ def csv_file() -> str:
 
 
 @pytest.fixture
-def json_file() -> str:
+def jsonl_file() -> str:
     return r"tests\load_data\files\logs.jsonl"
+
+@pytest.fixture
+def json_file() -> str:
+    return r"tests\load_data\files\data.json"

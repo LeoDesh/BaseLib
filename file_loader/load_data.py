@@ -66,3 +66,14 @@ class JSONLineLoader:
         self.file_verification.verify_file(filename)
         file_lines = get_file_lines(filename)
         return [json.loads(line) for line in file_lines]
+    
+
+class JSONLoader:
+    def __init__(self):
+        self.file_verification = FileVerification(".json")
+
+    def load(self, filename: str | Path) -> Dict[str|int,Dict[str,Any]]:
+        self.file_verification.verify_file(filename)
+        with open(str(filename),"r") as file:
+            content = file.read()
+            return json.loads(content) 
