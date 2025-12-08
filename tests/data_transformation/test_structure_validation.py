@@ -55,12 +55,13 @@ def test_validate_data_rows_mixed(data_container_mixed_types):
 
 @pytest.mark.transformation
 def test_validate_empty_container(data_container_empty):
-    assert not validate_empty_container(data_container_empty)
+    with pytest.raises(ValueError):
+        validate_empty_container(data_container_empty)
 
 
 @pytest.mark.transformation
 def test_validate_iterable(data_container_empty):
-    assert validate_iterable(data_container_empty)
+    validate_iterable(data_container_empty)
 
 
 @pytest.mark.transformation
@@ -127,3 +128,15 @@ def test_validate_jsonl_structure(data_container_jsonl_suitable):
 @pytest.mark.transformation
 def test_validate_json_structure(data_container_json_suitable):
     assert validate_json_structure(data_container_json_suitable)
+
+
+@pytest.mark.transformation
+def test_validate_jsonl_structure_empty(data_container_empty):
+    with pytest.raises(ValueError):
+        validate_jsonl_structure(data_container_empty)
+
+@pytest.mark.transformation
+def test_validate_json_structure_empty(data_container_json_empty):
+    with pytest.raises(ValueError):
+        validate_jsonl_structure(data_container_json_empty)
+

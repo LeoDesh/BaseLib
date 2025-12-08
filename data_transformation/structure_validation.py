@@ -1,5 +1,6 @@
 from typing import List, Dict, Iterable, Any, Tuple, Set
 from collections.abc import Iterable as It
+import pandas as pd
 
 
 def validate_iterable_of_lists_structure(
@@ -24,10 +25,10 @@ def validate_data_rows(data_container: Iterable[Any]) -> None:
         raise ValueError("Not all rows have the appropriate iterable type.")
 
 
-def validate_empty_container(variable: List[Any] | Tuple[Any] | Set[Any]) -> bool:
-    if variable:
-        return True
-    return False
+def validate_empty_container(variable: List[Any] | Tuple[Any] | Set[Any] | Dict[Any,Any]):
+    if not variable:
+        raise ValueError("Container is empty.")
+
 
 
 def validate_is_container_iterable(data_container: Iterable[Any]) -> None:
@@ -51,7 +52,9 @@ def validate_container(variable: List[Any] | Tuple[Any] | Set[Any]) -> bool:
     return False
 
 
+
 def validate_jsonl_structure(data_container: Iterable[Dict[str, Any]]) -> bool | None:
+    validate_empty_container(data_container)
     validate_is_container_iterable(data_container)
     validate_dict_data_container(data_container)
     validate_dict_keys(data_container)
@@ -95,11 +98,17 @@ def validate_row_dict(row_dict: Any) -> bool:
 def validate_dict_data_container(data_container: Iterable[Any]) -> None:
     for row_dict in data_container:
         if not validate_row_dict(row_dict):
-            raise ValueError("Row is not a dict.")
+            raise ValueError("Data row is not a dict.")
 
 
 def validate_json_structure(
-    data_container: Dict[ str|int , Dict[str, Any]],
+    data_container: Dict[str | int, Dict[str, Any]],
 ) -> bool | None:
     values_data_container = list(data_container.values())
     return validate_jsonl_structure(values_data_container)
+
+
+def validate_csv_xlsx_structure(df: pd.DataFrame):
+    if df.empty:
+        return False
+    return True

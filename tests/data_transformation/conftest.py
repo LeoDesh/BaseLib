@@ -61,3 +61,8 @@ def data_container_jsonl_mixed_types():
 @pytest.fixture()
 def data_container_json_suitable():
     return {"1": {"PersonID": 15, "OrderID": 22}, "2": {"PersonID": 44, "OrderID": 62}}
+
+
+@pytest.fixture()
+def data_container_json_empty():
+    return {}
