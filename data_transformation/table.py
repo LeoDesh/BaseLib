@@ -21,3 +21,5 @@ class Table:
     def convert_rows_to_columns(self):
         self.columns = [[row[i] for row in self.rows]  for i in range(self.shape[1])]
 
+    def compute_column_types(self):
+        pass

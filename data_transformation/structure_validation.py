@@ -1,5 +1,5 @@
-from typing import List, Dict, Iterable, Any, Tuple, Set
-from collections.abc import Iterable as It
+from typing import List, Dict, Any, Tuple, Set
+from collections.abc import Iterable 
 import pandas as pd
 
 
@@ -37,7 +37,7 @@ def validate_is_container_iterable(data_container: Iterable[Any]) -> None:
 
 
 def validate_iterable(variable: Iterable[Any]) -> bool:
-    if not isinstance(variable, It):
+    if not isinstance(variable, Iterable):
         return False
     return True
 
