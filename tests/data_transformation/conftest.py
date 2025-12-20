@@ -25,6 +25,9 @@ def data_container_different_columns_sizes():
 def data_container_suitable():
     return [(1, 2, 3, 4), (5, 6, 7, 8), (9, 10, 11, 12), (12, 13, 14, 15)]
 
+@pytest.fixture()
+def data_container_transformation():
+    return [(1, "ID", 19640817, "4.42"), (5, "User", 1990111, "8.5"), (9, "Mister", 19880827, "12.1"), (12, "Admin", 20001217, "15.4")]
 
 @pytest.fixture()
 def data_container_single_row():

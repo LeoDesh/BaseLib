@@ -1,4 +1,5 @@
 from data_transformation.table import Table
+from datetime import datetime
 import pytest
 
 @pytest.mark.transformation
@@ -21,3 +22,31 @@ def test_table_column_header_missmatch(data_container_suitable):
     header= ["PersonID","ProfileID","UserProfileID"]
     with pytest.raises(ValueError):
         Table(data_container_suitable,header)
+
+#data_container_transformation
+@pytest.mark.transformation
+def test_table_column_types(data_container_transformation):
+    header= ["PersonID","Description","Birthdate","Score"]
+    table = Table(data_container_transformation,header)
+    table.compute_column_types()
+    assert table.column_types == [int,str,datetime,float]
+
+@pytest.mark.transformation
+def test_table_data_transformation(data_container_transformation):
+    header= ["PersonID","Description","Birthdate","Score"]
+    table = Table(data_container_transformation,header)
+    table.transform_data_within_table()
+    assert table.rows[0][2] == datetime(1964,8,17)
+    assert table.columns[2][0] == datetime(1964,8,17)
+    assert table.rows[3][3] == 15.4
+
+
+@pytest.mark.transformation
+def test_table_data_transformation_provided_types(data_container_transformation):
+    header= ["PersonID","Description","Birthdate","Score"]
+    column_types = [int,str,int,str]
+    table = Table(data_container_transformation,header,column_types)
+    table.transform_data_within_table()
+    assert table.column_types == column_types
+    assert table.rows[0][2] == 19640817
+    assert table.rows[3][3] == "15.4"

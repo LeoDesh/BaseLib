@@ -71,6 +71,7 @@ def parse_datetime(value: str) -> datetime:
 
 
 def convert_to_datetime(value: str):
+    value = format_value(value)
     for fmt in FORMATS:
         try:
             date_value = datetime.strptime(value, fmt)
@@ -84,6 +85,7 @@ def convert_to_datetime(value: str):
 
 def convert_to_int(value: str):
     try:
+        value = format_value(value)
         int_value = int(value)
         return int_value
     except ValueError:
@@ -92,6 +94,7 @@ def convert_to_int(value: str):
 
 def convert_to_float(value: str):
     try:
+        value = format_value(value)
         float_value = float(value)
         return float_value
     except ValueError:
