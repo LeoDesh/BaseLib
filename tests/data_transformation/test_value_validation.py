@@ -5,6 +5,10 @@ from data_transformation.value_validation import (
     parse_int,
     determine_type,
     format_value,
+    determine_column_date_type,
+    determine_column_float_type,
+    determine_column_integer_type,
+    determine_column_type,
 )
 from datetime import datetime
 
@@ -80,3 +84,58 @@ def test_determine_type(value, expected_type):
 )
 def test_format_value(value, result):
     assert format_value(value) == result
+
+
+@pytest.mark.fast
+@pytest.mark.parametrize(
+    "values,choice",
+    [
+        ((3, 5, 7, "hi"), False),
+        ((3, "5", 7, 12), True),
+        ([], True),
+        ((3, 5, 7, 12), True),
+    ],
+)
+def test_determine_column_integer_type(values, choice):
+    assert determine_column_integer_type(values) is choice
+
+
+@pytest.mark.fast
+@pytest.mark.parametrize(
+    "values,choice",
+    [
+        ((3, 5, 7, "hi"), False),
+        ((3, "5.5", 7, 12), True),
+        ([], True),
+        ((3, "5.5", 7, "2,5"), False),
+        (("2.5", "4.5", "8.74545454"), True),
+    ],
+)
+def test_determine_column_float_type(values, choice):
+    assert determine_column_float_type(values) is choice
+
+
+@pytest.mark.fast
+@pytest.mark.parametrize(
+    "values,choice",
+    [
+        ((3, 5, 7, "hi"), False),
+        (("15031945","14.02.68","17.03.1984 23:15:03"), True),
+    ],
+)
+def test_determine_column_date_type(values, choice):
+    assert determine_column_date_type(values) is choice
+
+
+@pytest.mark.fast
+@pytest.mark.parametrize(
+    "values,result_type",
+    [
+        ((3, 5, 7, "hi"), str),
+        (("15031945","14.02.68","17.03.1984 23:15:03"), datetime),
+        (("15031945","22040907","17011968"), int),
+        (("15031945","22040907","3.4568"), float),
+    ],
+)
+def test_determine_column_type(values, result_type):
+    assert determine_column_type(values) is result_type

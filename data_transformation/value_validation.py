@@ -1,9 +1,9 @@
+from __future__ import annotations
 from datetime import datetime
-from typing import Any
-#RANKING = {1: str, 2: float, 3: int, 4: datetime}
+from typing import Any, List
+
+# RANKING = {1: str, 2: float, 3: int, 4: datetime}
 FORMATS = [
-    "%Y-%m-%dT%H:%M:%S%z",
-    "%Y-%m-%dT%H:%M:%S",
     "%Y-%m-%d %H:%M:%S",
     "%Y-%m-%d",
     "%d/%m/%Y",
@@ -12,52 +12,113 @@ FORMATS = [
     "%d.%m.%y",
     "%d%m%y",
     "%d%m%Y",
-    "%Y%m%d"
+    "%Y%m%d",
 ]
 
 
+def determine_column_type(values: List[Any]):
+    choice_functions = {
+        datetime: determine_column_date_type,
+        int: determine_column_integer_type,
+        float: determine_column_float_type,
+    }
+    for data_type,func in choice_functions.items():
+        if func(values):
+            return data_type
+    return str
+    
+
+
+def determine_column_date_type(values: List[Any]) -> bool:
+    for value in values:
+        value_str = format_value(value)
+        if parse_datetime(value_str) is not datetime:
+            return False
+    return True
+
+
+def determine_column_integer_type(values: List[Any]) -> bool:
+    for value in values:
+        value_str = format_value(value)
+        if parse_int(value_str) is not int:
+            return False
+    return True
+
+
+def determine_column_float_type(values: List[Any]) -> bool:
+    for value in values:
+        value_str = format_value(value)
+        if parse_float(value_str) is not float:
+            return False
+    return True
+
+
 def determine_type(value: str) -> type:
-    type_func = [parse_datetime,parse_int,parse_float]
+    type_func = [parse_datetime, parse_int, parse_float]
     for func in type_func:
         value_type = func(value)
         if value_type is not str:
             return value_type
     return str
-    
 
 
 def parse_datetime(value: str) -> datetime:
+    try:
+        convert_to_datetime(value)
+        return datetime
+    except ValueError:
+        return str
+
+
+def convert_to_datetime(value: str):
     for fmt in FORMATS:
-        #print(fmt)
         try:
-            yr = datetime.strptime(value, fmt).year
+            date_value = datetime.strptime(value, fmt)
+            yr = date_value.year
             if validate_year(yr):
-                return datetime
+                return date_value
         except ValueError:
             pass
-    return str
+    raise ValueError(f"{value} cannot be parsed to datetime.")
 
-def validate_year(yr:int):
+
+def convert_to_int(value: str):
+    try:
+        int_value = int(value)
+        return int_value
+    except ValueError:
+        raise ValueError(f"{value} cannot be converted to int.")
+
+
+def convert_to_float(value: str):
+    try:
+        float_value = float(value)
+        return float_value
+    except ValueError:
+        raise ValueError(f"{value} cannot be converted to float.")
+
+
+def validate_year(yr: int):
     if yr < 1900 or yr > 2100:
         return False
     return True
 
+
 def parse_int(value: str) -> int | str:
-    try: 
-        int(value)
+    try:
+        convert_to_int(value)
         return int
     except ValueError:
         return str
 
 
 def parse_float(value: str) -> float | str:
-    try: 
-        float(value)
+    try:
+        convert_to_float(value)
         return float
     except ValueError:
         return str
 
 
-def format_value(value:Any):
+def format_value(value: Any):
     return str(value).strip()
-    
