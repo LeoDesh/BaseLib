@@ -53,7 +53,7 @@ def determine_column_float_type(values: List[Any]) -> bool:
     return True
 
 
-def determine_type(value: str) -> type:
+def determine_type(value: Any) -> type:
     type_func = [parse_datetime, parse_int, parse_float]
     for func in type_func:
         value_type = func(value)
@@ -62,7 +62,7 @@ def determine_type(value: str) -> type:
     return str
 
 
-def parse_datetime(value: str) -> datetime:
+def parse_datetime(value: Any) -> datetime:
     try:
         convert_to_datetime(value)
         return datetime
@@ -70,7 +70,7 @@ def parse_datetime(value: str) -> datetime:
         return str
 
 
-def convert_to_datetime(value: str):
+def convert_to_datetime(value: Any):
     value = format_value(value)
     for fmt in FORMATS:
         try:
@@ -83,7 +83,7 @@ def convert_to_datetime(value: str):
     raise ValueError(f"{value} cannot be parsed to datetime.")
 
 
-def convert_to_int(value: str):
+def convert_to_int(value: Any):
     try:
         value = format_value(value)
         int_value = int(value)
@@ -92,7 +92,7 @@ def convert_to_int(value: str):
         raise ValueError(f"{value} cannot be converted to int.")
 
 
-def convert_to_float(value: str):
+def convert_to_float(value: Any):
     try:
         value = format_value(value)
         float_value = float(value)
@@ -107,7 +107,7 @@ def validate_year(yr: int):
     return True
 
 
-def parse_int(value: str) -> int | str:
+def parse_int(value: Any) -> int | str:
     try:
         convert_to_int(value)
         return int
@@ -115,7 +115,7 @@ def parse_int(value: str) -> int | str:
         return str
 
 
-def parse_float(value: str) -> float | str:
+def parse_float(value: Any) -> float | str:
     try:
         convert_to_float(value)
         return float

@@ -6,6 +6,9 @@ from data_transformation.value_validation import (
     format_value,
     determine_column_type,
 )
+from data_transformation.structure_validation import (
+    validate_iterable_of_lists_structure,
+)
 from datetime import datetime
 import pandas as pd
 
@@ -18,7 +21,14 @@ TRANSFORMATION_DICT = {
 
 
 class Table:
-    def __init__(self, data_container: Iterable[List[Any]], header: List[str] = [], column_types:List[type] = []):
+    def __init__(
+        self,
+        data_container: Iterable[List[Any]],
+        header: List[str] = [],
+        column_types: List[type] = [],
+        transform_data: bool = False,
+    ):
+        validate_iterable_of_lists_structure(data_container)
         if not header:
             size = len(data_container[0])
             header = [f"Column{idx + 1}" for idx in range(size)]
@@ -28,6 +38,8 @@ class Table:
         self.shape = (len(self.rows), len(self.header))
         self.convert_rows_to_columns()
         self.column_types = column_types
+        if transform_data:
+            self.transform_data_within_table()
 
     def transform_data_within_table(self):
         if not self.column_types:
