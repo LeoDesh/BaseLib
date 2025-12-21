@@ -50,3 +50,36 @@ def test_table_data_transformation_provided_types(data_container_transformation)
     assert table.column_types == column_types
     assert table.rows[0][2] == 19640817
     assert table.rows[3][3] == "15.4"
+
+@pytest.mark.transformation
+def test_table_data_equal(data_container_transformation):
+    header= ["PersonID","Description","Birthdate","Score"]
+    column_types = [int,str,int,str]
+    table = Table(data_container_transformation,header,column_types)
+    table.transform_data_within_table()
+    table_trg = Table(data_container_transformation,header,column_types)
+    table_trg.transform_data_within_table()
+    assert table == table_trg
+
+@pytest.mark.transformation
+def test_table_header_not_equal(data_container_transformation):
+    header= ["PersonID","Description","Birthdate","Score"]
+    column_types = [int,str,int,str]
+    table = Table(data_container_transformation,header,column_types)
+    table.transform_data_within_table()
+    header_trg = ["PersonID","Birthdate","Description","Score"]
+    table_trg = Table(data_container_transformation,header_trg,column_types)
+    table_trg.transform_data_within_table()
+    assert not table.compare_header(table_trg.header)
+
+@pytest.mark.transformation
+def test_table_columns_not_equal(data_container_transformation):
+    header= ["PersonID","Description","Birthdate","Score"]
+    column_types = [int,str,int,str]
+    table = Table(data_container_transformation,header,column_types)
+    table.transform_data_within_table()
+    header_trg = ["PersonID","Birthdate","Description","Score"]
+    table_trg = Table(data_container_transformation,header_trg,column_types)
+    table_trg.transform_data_within_table()
+    table_trg.columns[0][0] = -1
+    assert not table.compare_columns(table_trg.header)

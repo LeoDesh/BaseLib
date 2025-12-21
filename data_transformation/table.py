@@ -1,4 +1,6 @@
+from __future__ import annotations
 from typing import Iterable, List, Any, Callable
+#from LoggerConfig import app_logger
 from data_transformation.value_validation import (
     convert_to_datetime,
     convert_to_float,
@@ -79,6 +81,29 @@ class Table:
         self.df = pd.DataFrame(data)
 
     def __str__(self):
-        if not hasattr(self, "df"):
-            self.transform_to_dataframe()
+        self.transform_to_dataframe()
         return str(self.df)
+
+    def __eq__(self, other: Table):
+        if not isinstance(other, Table):
+            return NotImplemented
+        if not self.compare_header(other.header):
+            return False
+        if not self.compare_columns(other.columns):
+            return False
+        return True
+
+    def compare_header(self, other_header: List[str]) -> bool:
+        for src_header, trg_header in zip(self.header, other_header):
+            if src_header != trg_header:
+                #app_logger.info(f"{src_header}:{trg_header}")
+                return False
+        return True
+
+    def compare_columns(self, other_columns: List[List[Any]]) -> bool:
+        for src_column, trg_column in zip(self.columns, other_columns):
+            for src_value, trg_value in zip(src_column, trg_column):
+                if src_value != trg_value:
+                    #app_logger.info(f"{src_value}:{trg_value}")
+                    return False
+        return True
