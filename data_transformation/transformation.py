@@ -21,6 +21,9 @@ def convert_json_to_table(data_container: Dict[str | int, Dict[str, Any]]) -> Ta
     validate_json_structure(data_container)
     #Take keys as Index // first column
     data = list(data_container.values())
+    index_data = list(data_container.keys())
+    for line_dict,index in zip(data,index_data):
+        line_dict.update({"Index":index})
     return transform_list_of_dict_to_table(data)
 
 def transform_list_of_dict_to_table(data_container:List[Dict[str, Any]]) -> Table:
