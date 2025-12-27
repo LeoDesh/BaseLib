@@ -3,9 +3,10 @@ from pathlib import Path
 from base_lib.file_loader.file_verification import FileVerification
 from typing import List, Iterable, Dict, Any
 from base_lib.file_loader.load_helper import get_file_lines
+from base_lib.logger_setup.constants import app_logger
 import pandas as pd
 import json
-from LoggerConfig import app_logger
+
 
 
 class IFileLoader(ABC):

@@ -1,4 +1,4 @@
-from LoggerConfig import app_logger,ordinary_logger
+from base_lib.logger_setup.constants import app_logger,ordinary_logger
 from base_lib.data_transformation.table import Table
 from base_lib.data_transformation.export import export_table_to_csv_txt
 from base_lib.file_loader.load_data import TextFileLoader
@@ -28,8 +28,9 @@ def test_text_file_export(tmp_path:Path):
     #assert table == loaded_table
 
 def main():
-    ordinary_logger.info("FirstEntry")
-    test_text_file_export(Path(""))
+    ordinary_logger.critical("Test")
+    app_logger.error("Next")
+    #test_text_file_export(Path(""))
 
 if __name__ == "__main__":
     main()
