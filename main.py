@@ -1,7 +1,7 @@
 from LoggerConfig import app_logger,ordinary_logger
-from data_transformation.table import Table
-from data_transformation.export import export_table_to_csv_txt
-from file_loader.load_data import TextFileLoader
+from base_lib.data_transformation.table import Table
+from base_lib.data_transformation.export import export_table_to_csv_txt
+from base_lib.file_loader.load_data import TextFileLoader
 from pathlib import Path
 
 def test_text_file_export(tmp_path:Path):

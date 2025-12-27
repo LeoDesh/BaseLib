@@ -1,4 +1,4 @@
-from data_transformation.table import Table
+from base_lib.data_transformation.table import Table
 from datetime import datetime
 import pytest
 

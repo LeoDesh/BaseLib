@@ -1,6 +1,6 @@
 import pytest 
-from SQL.sql_connection import create_lite_engine,create_ms_sql_engine
-from SQL.sql_helper import exec_sql
+from base_lib.SQL.sql_connection import create_lite_engine,create_ms_sql_engine
+from base_lib.SQL.sql_helper import exec_sql
 
 
 class SqlLiteTestDB:

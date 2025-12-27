@@ -1,4 +1,4 @@
-from regex import regex_get_all_matches, regex_match, regex_match_exists
+from base_lib.utils.regex import regex_get_all_matches, regex_match, regex_match_exists
 import pytest
 
 

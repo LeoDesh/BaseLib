@@ -1,4 +1,4 @@
-from SQL.sql_connection import SqlEngine
+from base_lib.SQL.sql_connection import SqlEngine
 from sqlalchemy import text
 import pandas as pd
 from typing import List, Dict

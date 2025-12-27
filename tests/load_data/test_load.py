@@ -1,5 +1,5 @@
-from file_loader.load_data import TextFileLoader,ExcelFileLoader,CSVFileLoader,JSONLineLoader,JSONLoader
-from file_loader.load_helper import clean_up_text,get_file_lines
+from base_lib.file_loader.load_data import TextFileLoader,ExcelFileLoader,CSVFileLoader,JSONLineLoader,JSONLoader
+from base_lib.file_loader.load_helper import clean_up_text,get_file_lines
 import pytest
 
 @pytest.mark.fast

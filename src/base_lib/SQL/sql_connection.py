@@ -1,7 +1,7 @@
 from __future__ import annotations
 from sqlalchemy.engine import URL, create_engine
 from typing import Protocol
-from SQL.sql_config import SERVER_INFO
+from base_lib.SQL.sql_config import SERVER_INFO
 
 
 class SqlEngine(Protocol):

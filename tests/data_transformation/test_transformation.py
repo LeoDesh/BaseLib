@@ -1,4 +1,4 @@
-from data_transformation.transformation import (
+from base_lib.data_transformation.transformation import (
     convert_dataframe_to_table,
     convert_json_to_table,
     convert_jsonl_to_table,

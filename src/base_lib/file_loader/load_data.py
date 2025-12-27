@@ -1,8 +1,8 @@
 from abc import ABC
 from pathlib import Path
-from file_loader.file_verification import FileVerification
+from base_lib.file_loader.file_verification import FileVerification
 from typing import List, Iterable, Dict, Any
-from file_loader.load_helper import get_file_lines
+from base_lib.file_loader.load_helper import get_file_lines
 import pandas as pd
 import json
 from LoggerConfig import app_logger

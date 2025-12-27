@@ -1,4 +1,4 @@
-from data_transformation.export import (
+from base_lib.data_transformation.export import (
     export_table_to_csv_txt,
     # export_table_to_excel,
     # export_table_to_json,
@@ -6,7 +6,7 @@ from data_transformation.export import (
     Table,
 )
 import pytest
-from file_loader.load_data import (
+from base_lib.file_loader.load_data import (
     TextFileLoader,
     # ExcelFileLoader,
     # JSONLineLoader,
@@ -14,7 +14,7 @@ from file_loader.load_data import (
     CSVFileLoader,
 )
 
-from data_transformation.transformation import convert_dataframe_to_table
+from base_lib.data_transformation.transformation import convert_dataframe_to_table
 
 
 @pytest.mark.export

@@ -1,5 +1,5 @@
 import pytest 
-from SQL.sql_helper import qry_data,SqlEngine
+from base_lib.SQL.sql_helper import qry_data,SqlEngine
 from sqlalchemy import text
 import pandas as pd
 @pytest.mark.slow

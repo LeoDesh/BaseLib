@@ -1,5 +1,5 @@
 import pytest 
-from SQL.sql_helper import read_qry_from_file,qry_multiple_data
+from base_lib.SQL.sql_helper import read_qry_from_file,qry_multiple_data
 from pathlib import Path
 
 @pytest.mark.slow

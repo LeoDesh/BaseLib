@@ -1,5 +1,5 @@
-from data_transformation.table import Table
-from data_transformation.structure_validation import (
+from base_lib.data_transformation.table import Table
+from base_lib.data_transformation.structure_validation import (
     validate_json_structure,
     validate_csv_xlsx_structure,
     validate_jsonl_structure,

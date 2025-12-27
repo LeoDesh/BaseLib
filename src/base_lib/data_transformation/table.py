@@ -1,14 +1,14 @@
 from __future__ import annotations
 from typing import Iterable, List, Any, Callable
 #from LoggerConfig import app_logger
-from data_transformation.value_validation import (
+from base_lib.data_transformation.value_validation import (
     convert_to_datetime,
     convert_to_float,
     convert_to_int,
     format_value,
     determine_column_type,
 )
-from data_transformation.structure_validation import (
+from base_lib.data_transformation.structure_validation import (
     validate_iterable_of_lists_structure,
 )
 from datetime import datetime
