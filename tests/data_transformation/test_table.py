@@ -62,7 +62,7 @@ def test_table_data_equal(data_container_transformation):
     assert table == table_trg
 
 @pytest.mark.transformation
-def test_table_header_not_equal(data_container_transformation):
+def test_table_compare_header_not_equal(data_container_transformation):
     header= ["PersonID","Description","Birthdate","Score"]
     column_types = [int,str,int,str]
     table = Table(data_container_transformation,header,column_types)
@@ -73,13 +73,20 @@ def test_table_header_not_equal(data_container_transformation):
     assert not table.compare_header(table_trg.header)
 
 @pytest.mark.transformation
-def test_table_columns_not_equal(data_container_transformation):
+def test_table_compare_columns_not_equal(data_container_transformation):
     header= ["PersonID","Description","Birthdate","Score"]
     column_types = [int,str,int,str]
     table = Table(data_container_transformation,header,column_types)
     table.transform_data_within_table()
-    header_trg = ["PersonID","Birthdate","Description","Score"]
-    table_trg = Table(data_container_transformation,header_trg,column_types)
+    table_trg = Table(data_container_transformation,header,column_types)
     table_trg.transform_data_within_table()
     table_trg.columns[0][0] = -1
     assert not table.compare_columns(table_trg.header)
+
+
+@pytest.mark.transformation
+def test_table_column_transformation_column_types_length_does_not_match(data_container_transformation):
+    header= ["PersonID","Description","Birthdate","Score"]
+    column_types = [int,str,int,str]
+    table = Table(data_container_transformation,header,column_types)
+    table.transform_data_within_table()

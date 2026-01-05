@@ -1,6 +1,7 @@
 from __future__ import annotations
 from typing import Iterable, List, Any, Callable
-#from LoggerConfig import app_logger
+
+# from LoggerConfig import app_logger
 from base_lib.data_transformation.value_validation import (
     convert_to_datetime,
     convert_to_float,
@@ -61,6 +62,10 @@ class Table:
         self.column_types = [determine_column_type(column) for column in self.columns]
 
     def convert_column_types(self):
+        if len(self.column_types) != len(self.columns):
+            raise ValueError(
+                f"Column Type Length {len(self.column_types)} does not match Column Length {len(self.columns)}."
+            )
         for column_idx, column_type in enumerate(self.column_types):
             self.update_column_values(column_idx, TRANSFORMATION_DICT[column_type])
             self.update_row_values_of_column_idx(
@@ -96,7 +101,7 @@ class Table:
     def compare_header(self, other_header: List[str]) -> bool:
         for src_header, trg_header in zip(self.header, other_header):
             if src_header != trg_header:
-                #app_logger.info(f"{src_header}:{trg_header}")
+                # app_logger.info(f"{src_header}:{trg_header}")
                 return False
         return True
 
@@ -104,6 +109,6 @@ class Table:
         for src_column, trg_column in zip(self.columns, other_columns):
             for src_value, trg_value in zip(src_column, trg_column):
                 if src_value != trg_value:
-                    #app_logger.info(f"{src_value}:{trg_value}")
+                    # app_logger.info(f"{src_value}:{trg_value}")
                     return False
         return True

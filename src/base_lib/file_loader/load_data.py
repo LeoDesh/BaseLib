@@ -78,3 +78,4 @@ class JSONLoader:
         with open(str(filename),"r") as file:
             content = file.read()
             return json.loads(content) 
+        
