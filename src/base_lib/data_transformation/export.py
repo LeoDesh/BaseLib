@@ -1,4 +1,5 @@
 from base_lib.data_transformation.table import Table
+from base_lib.SQL.sql_helper import exec_sql,SqlEngine
 from typing import List, Dict, Any
 import pandas as pd
 import json
@@ -49,3 +50,8 @@ def export_table_to_excel(table: Table, filename: str, sheet_name: str):
 def export_table_to_csv_txt(table: Table, filename: str):
     table.transform_to_dataframe()
     export_to_csv_txt(table.df, filename)
+
+def export_table_to_sql(table:Table,table_name:str,sql_engine:SqlEngine,if_exists:str="replace"):
+    table.transform_to_dataframe()
+    df = table.df 
+    df.to_sql(table_name,sql_engine,if_exists=if_exists,index=False)
