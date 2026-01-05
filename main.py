@@ -2,6 +2,8 @@ from base_lib.logger_setup.constants import app_logger,ordinary_logger
 from base_lib.data_transformation.table import Table
 from base_lib.data_transformation.export import export_table_to_csv_txt
 from base_lib.file_loader.load_data import TextFileLoader
+from base_lib.SQL.sql_connection import create_mysql_engine,create_postgres_sql_engine
+from base_lib.SQL.sql_helper import qry_data
 from pathlib import Path
 
 def test_text_file_export(tmp_path:Path):
@@ -27,10 +29,21 @@ def test_text_file_export(tmp_path:Path):
     print(table==loaded_table)
     #assert table == loaded_table
 
+def test_mysql():
+    engine = create_mysql_engine(mysql_db="mydatabase",mysql_user="myuser",mysql_pw="secretpassword",db_host="localhost",db_port="3306")
+    df = qry_data("Select * from users;",engine)
+    print(df)
+
+def test_postgres():
+    engine = create_postgres_sql_engine(postgres_db="mydb",postgres_user="myuser",postgres_pw="mypassword",db_host="localhost",db_port="5432")
+    df = qry_data("Select * from users;",engine)
+    print(df)
+
 def main():
-    ordinary_logger.critical("Test")
-    app_logger.error("Next")
+    #ordinary_logger.critical("Test")
+    #app_logger.error("Next")
     #test_text_file_export(Path(""))
+    test_postgres()
 
 if __name__ == "__main__":
     main()
