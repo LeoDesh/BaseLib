@@ -40,6 +40,18 @@ class MS_SQL_ConnectionHandler:
         return create_engine(connection_url)
 
 
+def create_postgres_sql_engine(
+    postgres_db: str, postgres_user: str, postgres_pw: str, db_host: str, db_port: str
+) -> SqlEngine:
+    connection_str = f"postgresql+psycopg2://{postgres_user}:{postgres_pw}@{db_host}:{db_port}/{postgres_db}"
+    return create_engine(connection_str)
+
+
+def create_mysql_engine(mysql_db: str, mysql_user: str, mysql_pw: str, db_host: str, db_port: str) -> SqlEngine:
+    connection_str = f"mysql+pymysql://{mysql_user}:{mysql_pw}@{db_host}:{db_port}/{mysql_db}"
+    return create_engine(connection_str)
+
+
 def create_ms_sql_engine() -> SqlEngine:
     conn = MS_SQL_ConnectionHandler(**SERVER_INFO)
     return conn.create_engine()
@@ -50,6 +62,3 @@ def create_lite_engine(db_path: str = "sqlite:///response.db") -> SqlEngine:
 
 
 SERVER_ENGINE: SqlEngine = create_ms_sql_engine()
-
-
-
