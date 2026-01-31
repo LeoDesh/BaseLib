@@ -52,8 +52,8 @@ def create_mysql_engine(mysql_db: str, mysql_user: str, mysql_pw: str, db_host: 
     return create_engine(connection_str)
 
 
-def create_ms_sql_engine() -> SqlEngine:
-    conn = MS_SQL_ConnectionHandler(**SERVER_INFO)
+def create_ms_sql_engine(connection_data:dict = SERVER_INFO) -> SqlEngine:
+    conn = MS_SQL_ConnectionHandler(**connection_data)
     return conn.create_engine()
 
 

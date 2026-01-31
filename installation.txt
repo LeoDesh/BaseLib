@@ -1,0 +1,3 @@
+[tool.uv.sources]
+projectbase = { path = "../ProjectBase", editable = true }
+uv add "Path to toml File"
